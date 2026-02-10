@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<!--    <link rel="stylesheet" href="/css/style.css">-->
+    <!--    <link rel="stylesheet" href="/css/style.css">-->
     <title>System Kategoryzacji Filmów | Filmy</title>
 </head>
 <body>
@@ -14,18 +14,34 @@
     <p>Aby pobrać listę zapisanych filmów kliknij przycisk poniżej</p>
     <button id="loadAllMovies">Pobierz</button>
 
-    <div id="tableAndForms" style="display:none;">
-        <table id="movieTable" class="table">
-            <thead>
-            <th scope="col">Tytuł</th>
-            <th scope="col">Reżyser</th>
-            <th scope="col">Rok produkcji</th>
-            </thead>
-            <tbody id="tbody">
-            </tbody>
-        </table>
+    <!--    <div id="tableAndForms" style="display:none;">-->
+    <!--        <table id="movieTable" class="table">-->
+    <!--            <thead>-->
+    <!--            <th scope="col">Tytuł</th>-->
+    <!--            <th scope="col">Reżyser</th>-->
+    <!--            <th scope="col">Rok produkcji</th>-->
+    <!--            </thead>-->
+    <!--            <tbody id="tbody">-->
+    <!--            </tbody>-->
+    <!--        </table>-->
+    <!--    </div>-->
 
-    </div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Director</th>
+            <th>User ID</th>
+            <th>Release Date</th>
+        </tr>
+        <tr th:each="movie : ${movies}">
+            <td th:text="${movie.id}"></td>
+            <td th:text="${movie.title}"></td>
+            <td th:text="${movie.director}"></td>
+            <td th:text="${movie.userId}"></td>
+            <td th:text="${movie.releaseDate}"></td>
+        </tr>
+    </table>
 </main>
 <!--<script src="/script/script.js"></script>-->
 </body>
