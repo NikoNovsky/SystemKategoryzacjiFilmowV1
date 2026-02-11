@@ -20,14 +20,25 @@
 </div>
 
 <div>
-    <form id="searchMovie">
+    <form id="searchMovieForm" action="/search" method="get">
         <label>
             Wpisz nazwę filmu:
-            <input type="text" name="title">
+            <input type="text" name="query" required>
         </label>
 
         <button id="searchMovieButton">Szukaj filmu</button>
     </form>
+</div>
+
+<div>
+    <h2>Wyniki wyszukiwania</h2>
+    <div th:if="${movies != null}">
+        <div th:each="movie : ${movies}">
+            <h3 th:text="${movie.title} + ' (' + ${movie.release_date} + ')'"></h3>
+            <p th:text="${movie.overview}"></p>
+            <img th:src="'https://image.tmdb.org/t/p/w200' + ${movie.poster_path}" th:alt="${movie.title}">
+        </div>
+    </div>
 </div>
 <script src="/script/script.js"></script>
 </body>
