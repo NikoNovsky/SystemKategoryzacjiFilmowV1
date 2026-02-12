@@ -11,4 +11,5 @@ public interface MovieRepository extends CrudRepository<Movies, Integer> {
 
     public List<Movies> findByUserUsername(String username);
     boolean existsByTitleAndUser(String title, User user);
+    List<Movies> findAllByIdInAndUser(List<Integer> ids, User user);
 }

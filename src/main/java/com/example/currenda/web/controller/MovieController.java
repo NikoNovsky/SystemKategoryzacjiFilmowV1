@@ -22,6 +22,7 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -79,6 +80,17 @@ public class MovieController {
                 e.printStackTrace();
             }
         });
-        return "movies";
+        return "redirect:/movies";
+    }
+
+    @PostMapping("/delete")
+    public String deleteMovieFromFavorite(@RequestParam List<Integer> id, Principal principal) {
+        String username = principal.getName();
+        User user = userRepository.findByUsername(username);
+
+        List<Movies> moviesToDelete = movieRepository.findAllByIdInAndUser(id, user);
+        movieRepository.deleteAll(moviesToDelete);
+
+        return "redirect:/movies";
     }
 }
