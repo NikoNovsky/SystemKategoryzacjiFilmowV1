@@ -1,11 +1,15 @@
 package com.example.currenda.data.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -19,5 +23,8 @@ public class User {
     private String password;
     @Column(name = "enabled")
     private boolean enabled;
+
+    @OneToMany(mappedBy = "user")
+    private List<Movies> movies;
 
 }

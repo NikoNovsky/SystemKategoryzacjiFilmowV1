@@ -1,5 +1,6 @@
 package com.example.currenda.async;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -7,17 +8,26 @@ import java.util.List;
 @Data
 public class MovieAsync {
     private Boolean adult;
-    private String backdrop_path;
-    private List<Integer> genre_ids;
+    @JsonProperty("backdrop_path")
+    private String backdropPath;
+    @JsonProperty("genre_ids")
+    private List<Integer> genreIds;
     private Integer id;
-    private String original_language;
-    private String original_title;
+    @JsonProperty("original_language")
+    private String originalLanguage;
+    @JsonProperty("original_title")
+    private String originalTitle;
     private String overview;
     private Double popularity;
-    private String poster_path;
-    private String release_date;
+    @JsonProperty("poster_path")
+    private String posterPath;
+    @JsonProperty("release_date")
+    private String releaseDate;
     private String title;
     private Boolean video;
-    private Double vote_average;
-    private Integer vote_count;
+    @JsonProperty("vote_average")
+    private Double voteAverage;
+    @JsonProperty("vote_count")
+    private Integer voteCount;
+    private String director;
 }
