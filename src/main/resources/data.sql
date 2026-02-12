@@ -1,9 +1,9 @@
 -- Dodajemy użytkowników
 INSERT INTO USERS (USERNAME, FIRSTNAME, LASTNAME, PASSWORD, ENABLED)
 VALUES
-    ('user0', 'Jan', 'Kowalski', '{bcrypt}$2a$10$chWMGf1hYYeELZdqowYEWOENcP9/KLc.KTFaDAJDNgOjJInmNDcIu', true),
-    ('user1', 'Anna', 'Nowak', '{bcrypt}$2a$10$chWMGf1hYYeELZdqowYEWOENcP9/KLc.KTFaDAJDNgOjJInmNDcIu', true),
-    ('user2', 'Piotr', 'Wiśniewski', '{bcrypt}$2a$10$chWMGf1hYYeELZdqowYEWOENcP9/KLc.KTFaDAJDNgOjJInmNDcIu', true);
+    ('user0', 'Jan', 'Kowalski', '{bcrypt}$2a$10$PkOkJGhop4i4yZIq9UwkjOE8d8ydwtFonzWPiTdR051v2x/XU6Oq6', true),
+    ('user1', 'Anna', 'Nowak', '{bcrypt}$2a$10$PkOkJGhop4i4yZIq9UwkjOE8d8ydwtFonzWPiTdR051v2x/XU6Oq6', true),
+    ('user2', 'Piotr', 'Wiśniewski', '{bcrypt}$2a$10$PkOkJGhop4i4yZIq9UwkjOE8d8ydwtFonzWPiTdR051v2x/XU6Oq6', true);
 
 -- Dodajemy filmy przypisane do użytkowników
 INSERT INTO MOVIES (TITLE, DIRECTOR, RELEASEDATE, USER_ID)
