@@ -7,12 +7,12 @@ import com.example.currenda.data.model.User;
 import com.example.currenda.data.repository.MovieRepository;
 import com.example.currenda.data.repository.UserRepository;
 import com.example.currenda.web.service.MovieService;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
@@ -46,7 +46,7 @@ public class MovieController {
         User user = this.userRepository.findByUsername(username);
         movies.forEach(movie -> {
             try {
-                if (!movieRepository.existsByTitleAndUser(movie, user)) {
+                if (!this.movieRepository.existsByTitleAndUser(movie, user)) {
                     WrapperMovieAsync wrapperMovieAsync = movieService.getWrapperMovieAsync(movie);
 
                     MovieAsync firstChild = wrapperMovieAsync.getResults().getFirst();
@@ -60,14 +60,32 @@ public class MovieController {
         return "redirect:/movies";
     }
 
-    @PostMapping("/delete")
-    public String deleteMovieFromFavorite(@RequestParam List<Integer> id, Principal principal) {
-        String username = principal.getName();
-        User user = userRepository.findByUsername(username);
-
-        List<Movies> moviesToDelete = movieRepository.findAllByIdInAndUser(id, user);
-        movieRepository.deleteAll(moviesToDelete);
-
+    @PostMapping("/deleteOrUpdate")
+    public String deleteOrUpdateMovieFromFavorite(@RequestParam String action, @RequestParam Integer id, Principal principal, Movies movie) {
+        if (action.equals("delete")) {
+            deleteMovieFromFavorite(id, principal);
+        } else {
+            updateMovieFromFavorite(id, principal, movie);
+        }
         return "redirect:/movies";
+    }
+
+    private void deleteMovieFromFavorite(Integer id, Principal principal) {
+        this.movieRepository.delete(getMoviesForUser(id, principal));
+    }
+
+    private void updateMovieFromFavorite(Integer id, Principal principal, Movies movie) {
+        Movies movieToUpdate = getMoviesForUser(id, principal);
+        movieToUpdate.setTitle(movie.getTitle());
+        movieToUpdate.setReleaseDate(movie.getReleaseDate());
+        movieToUpdate.setVoteAverage(movie.getVoteAverage());
+        movieToUpdate.setDirector(movie.getDirector());
+        this.movieRepository.save(movieToUpdate);
+    }
+
+    private Movies getMoviesForUser(Integer id, Principal principal) {
+        String username = principal.getName();
+        User user = this.userRepository.findByUsername(username);
+        return this.movieRepository.findByIdAndUser(id, user);
     }
 }
