@@ -31,7 +31,7 @@ public class UserController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public String addUser(User user) {
+    public String addUser(User user, Model model) {
         if (!this.userRepository.existsById(user.getUsername())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setEnabled(true);
@@ -40,9 +40,10 @@ public class UserController {
             authority.setUsername(user.getUsername());
             authority.setAuthority("ROLE_USER");
             this.authorityRepository.save(authority);
-            return "register";
+            model.addAttribute("success", "Rejestracja przebiegła pomyślnie!");
         } else {
-            throw new RuntimeException("User already exists");
+            model.addAttribute("error", "Użytkownik o podanej nazwie już istnieje!");
         }
+        return "register";
     }
 }
