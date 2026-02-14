@@ -11,17 +11,19 @@
 <div th:replace="~{header :: header}"></div>
 <main class="container">
 
-    <table class="table">
+    <table id="movieTable" class="table">
+        <thead>
         <tr>
-            <th scope="col">Tytuł</th>
-            <th scope="col">Reżyser</th>
-            <th scope="col">Data wydania</th>
-            <th scope="col">Średnia ocen</th>
+            <th scope="col" data-column="0">Tytuł<span></span></th>
+            <th scope="col" data-column="1">Reżyser<span></span></th>
+            <th scope="col" data-column="2">Data wydania<span></span></th>
+            <th scope="col" data-column="3">Średnia ocen<span></span></th>
             <th scope="col"/>
             <th scope="col"/>
             <th scope="col"/>
         </tr>
-
+        </thead>
+        <tbody>
         <tr th:each="movie : ${movies}">
             <form th:action="@{/movies/deleteOrUpdate}" method="post">
                 <td><input th:name="title" th:value="${movie.title}"/></td>
@@ -37,7 +39,7 @@
                 <td><input th:type="hidden" th:name="id" th:value="${movie.id}"></td>
             </form>
         </tr>
-
+        </tbody>
     </table>
 
 </main>
