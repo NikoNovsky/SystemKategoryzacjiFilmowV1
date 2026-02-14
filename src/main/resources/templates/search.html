@@ -19,6 +19,8 @@
     </div>
 </div>
 
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
 <div>
     <form id="searchMovieForm" action="/search" method="get">
         <label>

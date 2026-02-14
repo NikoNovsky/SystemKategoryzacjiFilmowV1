@@ -10,6 +10,7 @@ import com.example.currenda.web.service.MovieService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -44,8 +45,9 @@ public class SearchController {
     }
 
     @PostMapping
-    public String addMovieToUser(@RequestParam(required = false) List<String> movies, Principal principal) {
+    public String addMovieToUser(@RequestParam(required = false) List<String> movies, Principal principal, Model model) {
         if (movies == null || movies.isEmpty()) {
+            model.addAttribute("error", "Nie wybrano żadnych filmów do dodania!");
             return "search";
         } else {
             String username = principal.getName();
@@ -54,6 +56,7 @@ public class SearchController {
                 try {
                     if (!this.movieRepository.existsByTitleAndUser(movie, user)) {
                         WrapperMovieAsync wrapperMovieAsync = movieService.getWrapperMovieAsync(movie);
+
                         MovieAsync firstChild = wrapperMovieAsync.getResults().getFirst();
                         Movies movieToAdd = new Movies(firstChild.getTitle(), "Brak danych", user, LocalDate.parse(firstChild.getReleaseDate()), String.valueOf(firstChild.getVoteAverage()));
                         this.movieRepository.save(movieToAdd);
