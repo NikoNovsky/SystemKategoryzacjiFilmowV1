@@ -19,3 +19,8 @@ Hasła dla użytkowników testowych (user0, user1 i user2) mogę podać prywatni
 - Utwórz konto użytkownika rejestrując się na stronie
 - W zakładce "Filmy" są wyświetlane dodane filmy przez użytkownika (dla nowych użytkowników tabela jest pusta), dane można aktualizować lub usuwać filmy. Jest dodana możliwość sortowania filmów po każdej z kolumn
 - W zakładce "Wyszukaj" można wyszukiwać filmy po nazwach angielskich (API działa po angielsku), aby dodać filmy do bazy należy je zaznaczyć checkboxem oraz kliknąć przycisk, a po dodaniu filmy są dostępne w zakładce "Filmy"
+
+## Zgłaszanie bugów
+Jeżeli znajdziesz jakieś bugi i/lub chcesz zgłosić jakieś poprawki/usprawnienia - masz wolną rękę do kontaktu ze mną :)
+
+Z góry dziękuję za wszelkie uwagi!
