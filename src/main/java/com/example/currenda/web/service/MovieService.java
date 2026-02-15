@@ -2,6 +2,7 @@ package com.example.currenda.web.service;
 
 import com.example.currenda.async.WrapperMovieAsync;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class MovieService {
         this.mapper = mapper;
     }
 
-    public WrapperMovieAsync getWrapperMovieAsync(String movie) throws IOException, InterruptedException {
+    public WrapperMovieAsync getWrapperMovieAsync(String movie, Model model) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -34,6 +35,10 @@ public class MovieService {
                 request,
                 HttpResponse.BodyHandlers.ofString()
         );
+
+        if (response.statusCode() != 200) {
+            model.addAttribute("error", "Coś poszło nie tak, skontaktuj się z administratorem albo zapłać 5zł i spróbuj ponownie :) Albo po prostu utwórz konto na https://developer.themoviedb.org/reference/getting-started i utwórz zmienną środowiskową pod nazwą TMDB_API_TOKEN i ustaw w niej token");
+        }
 
         return mapper.readValue(response.body(), WrapperMovieAsync.class);
     }

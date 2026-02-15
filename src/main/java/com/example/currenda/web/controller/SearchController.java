@@ -10,7 +10,6 @@ import com.example.currenda.web.service.MovieService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -34,7 +33,7 @@ public class SearchController {
     public String getSearch(Model model, @RequestParam(required = false) String query) {
         try {
             if (query != null && !query.isBlank()) {
-                WrapperMovieAsync wrapperMovieAsync = movieService.getWrapperMovieAsync(query);
+                WrapperMovieAsync wrapperMovieAsync = movieService.getWrapperMovieAsync(query, model);
 
                 model.addAttribute("movies", wrapperMovieAsync.getResults());
             }
@@ -55,7 +54,7 @@ public class SearchController {
             movies.forEach(movie -> {
                 try {
                     if (!this.movieRepository.existsByTitleAndUser(movie, user)) {
-                        WrapperMovieAsync wrapperMovieAsync = movieService.getWrapperMovieAsync(movie);
+                        WrapperMovieAsync wrapperMovieAsync = movieService.getWrapperMovieAsync(movie, model);
 
                         MovieAsync firstChild = wrapperMovieAsync.getResults().getFirst();
                         Movies movieToAdd = new Movies(firstChild.getTitle(), "Brak danych", user, LocalDate.parse(firstChild.getReleaseDate()), String.valueOf(firstChild.getVoteAverage()));
